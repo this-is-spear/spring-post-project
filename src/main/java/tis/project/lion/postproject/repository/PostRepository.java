@@ -1,5 +1,6 @@
 package tis.project.lion.postproject.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import tis.project.lion.postproject.domain.Post;
 
 import java.util.List;
@@ -12,7 +13,5 @@ public interface PostRepository {
 
     public Optional<Post> findById(Long id);
 
-    public Optional<Post> updateById(Long id);
-
-    public void deleteById(Long id);
+    public void delete(Post post);
 }

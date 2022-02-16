@@ -7,7 +7,5 @@ public interface BoardRepository {
 
     public Board findById(Long id);
 
-    public Board updateById(Long id);
-
-    public void deleteById(Long id);
+    public void delete(Board board);
 }

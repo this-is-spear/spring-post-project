@@ -16,7 +16,7 @@ public interface PostService {
 
     public Post findPostOne(PostDto postDto);
 
-    public Post editPost(PostDto postDto);
+    public void editPost(PostDto postDto);
 
     public void deletePost(PostDto postDto);
 }
