@@ -1,5 +1,6 @@
-package tis.project.lion.postproject.web;
+package tis.project.lion.postproject.web.controller;
 
+import tis.project.lion.postproject.web.form.InputPostForm;
 import tis.project.lion.postproject.web.message.ResponseMessage;
 
 public interface PostController {
@@ -18,7 +19,7 @@ public interface PostController {
 
 //    public String updatePostForm();
 
-    public ResponseMessage updatePOst(InputPostForm postForm);
+    public ResponseMessage editPost(InputPostForm postForm);
 
     public ResponseMessage deletePost(Long post_id);
 }
