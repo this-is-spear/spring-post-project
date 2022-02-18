@@ -2,10 +2,14 @@ package tis.project.lion.postproject.repository;
 
 import tis.project.lion.postproject.domain.Board;
 
+import java.util.Optional;
+
 public interface BoardRepository {
-    public void save(Board board);
+    <S extends Board> S save(S entity);
 
-    public Board findById(Long id);
+    Optional<Board> findById(Long aLong);
 
-    public void delete(Board board);
+    void deleteById(Long id);
+
+    void updateTitle(Long id, String name);
 }

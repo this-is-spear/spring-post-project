@@ -35,29 +35,29 @@ class BoardRepositoryImplTest {
         Board board = new Board();
         board.setName("asdf");
         boardRepository.save(board);
-        assertEquals(board.getId(), boardRepository.findById(board.getId()).getId());
+        assertEquals(board.getId(), boardRepository.findById(board.getId()).get().getId());
     }
 
     @Test
     void 삭제() {
         assertDoesNotThrow(() -> {
-            boardRepository.delete(board);
+            boardRepository.deleteById(board.getId());
         });
     }
 
     @Test
     void 조회() {
         Long id = board.getId();
-        assertEquals(id, boardRepository.findById(id).getId());
+        assertEquals(id, boardRepository.findById(id).get().getId());
     }
 
     @Test
     void 수정() {
         Long id = board.getId();
         String name = "aaa";
-        Board findBord = boardRepository.findById(id);
+        Board findBord = boardRepository.findById(id).get();
         findBord.setName(name);
-        boardRepository.save(board);
+        boardRepository.save(findBord);
         assertEquals(board.getName(), name);
         assertEquals(findBord.getName(), name);
     }

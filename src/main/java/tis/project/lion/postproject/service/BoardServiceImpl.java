@@ -1,33 +1,52 @@
 package tis.project.lion.postproject.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tis.project.lion.postproject.domain.Board;
-import tis.project.lion.postproject.domain.BoardDto;
-import tis.project.lion.postproject.repository.BoardRepository;
+import tis.project.lion.postproject.exception.DeleteException;
+import tis.project.lion.postproject.repository.JpaBoardRepository;
 
+import java.util.Optional;
+
+@Slf4j
 @Service
+@Transactional
 public class BoardServiceImpl implements BoardService{
 
-//    @Autowired
-//    BoardRepository boardRepository;
+    JpaBoardRepository boardRepository;
 
-    @Override
-    public void createBoard(BoardDto boardDto) {
-
+    @Autowired
+    public BoardServiceImpl(JpaBoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
     }
 
     @Override
-    public Board findBoardOne(BoardDto boardDto) {
-        return null;
+    public Board createBoard(Board board) {
+        return boardRepository.save(board);
     }
 
     @Override
-    public void editBoard(BoardDto boardDto) {
+    public Board findBoardOne(Long id) {
+        Optional<Board> findBoard = boardRepository.findById(id);
+        return findBoard.get();
     }
 
     @Override
-    public void deleteBoard(BoardDto boardDto) {
+    public Board editBoard(Board board) {
+        boardRepository.updateTitle(board.getId(), board.getName());
+        return boardRepository.findById(board.getId()).get();
+    }
 
+    @Override
+    public void deleteBoard(Long id) throws DeleteException {
+        try {
+            boardRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("[{}][{}][{}]", this.getClass().getName(), e.getMessage(), "no data");
+            throw new DeleteException("해당 아이디에 존재하는 데이터가 없습니다.");
+        }
     }
 }

@@ -19,6 +19,10 @@ public class Board {
         this.name = name;
     }
 
+    public Board(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
@@ -34,4 +38,5 @@ public class Board {
     public void setName(String name) {
         this.name = name;
     }
+
 }

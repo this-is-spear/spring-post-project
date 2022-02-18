@@ -1,16 +1,16 @@
 package tis.project.lion.postproject.service;
 
 import tis.project.lion.postproject.domain.Board;
-import tis.project.lion.postproject.domain.BoardDto;
+import tis.project.lion.postproject.exception.DeleteException;
 
 public interface BoardService {
     //board CRUD;
 
-    public void createBoard(BoardDto boardDto);
+    Board createBoard(Board board);
 
-    public Board findBoardOne(BoardDto boardDto);
+    Board findBoardOne(Long id);
 
-    public void editBoard(BoardDto boardDto);
+    Board editBoard(Board board);
 
-    public void deleteBoard(BoardDto boardDto);
+    void deleteBoard(Long id) throws DeleteException;
 }
