@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tis.project.lion.postproject.domain.Board;
-import tis.project.lion.postproject.domain.BoardDto;
+import tis.project.lion.postproject.domain.BoardResponse;
+import tis.project.lion.postproject.exception.DeleteException;
 import tis.project.lion.postproject.service.BoardService;
 import tis.project.lion.postproject.api.message.ResponseMessage;
 
@@ -31,7 +32,7 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PostMapping
-    public ResponseMessage createBoard(@RequestBody BoardDto boardDto) {
+    public ResponseMessage createBoard(@RequestBody BoardResponse boardDto) {
 
         log.debug("call {} {} {}",getClass().getName(), boardDto, boardDto.getName());
         boardService.createBoard(boardDto.convertBoard());
@@ -41,18 +42,16 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PatchMapping("/{board_id}")
-    public ResponseMessage editBoard(@PathVariable Long board_id, @RequestBody BoardDto boardDto) {
-        BoardDto editBoardDto = new BoardDto(board_id, boardDto.getName());
+    public ResponseMessage editBoard(@PathVariable Long board_id, @RequestBody BoardResponse boardDto) {
         log.debug("call {} {} {}",getClass().getName(), boardDto.getName(), board_id);
-        boardService.editBoard(editBoardDto.convertBoard());
+        boardService.editBoard(board_id, boardDto.convertBoard());
         ResponseMessage message = new ResponseMessage(true, "OK");
-
         return message;
     }
 
     @Override
     @DeleteMapping("/{board_id}")
-    public ResponseMessage deleteBoard(@PathVariable Long board_id) {
+    public ResponseMessage deleteBoard(@PathVariable Long board_id) throws DeleteException {
         log.debug("call {} {}",getClass().getName(), board_id);
         boardService.deleteBoard(board_id);
         ResponseMessage message = new ResponseMessage(true, "OK");

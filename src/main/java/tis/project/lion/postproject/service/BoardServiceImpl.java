@@ -35,9 +35,9 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public Board editBoard(Board board) {
-        boardRepository.updateTitle(board.getId(), board.getName());
-        return boardRepository.findById(board.getId()).get();
+    public Board editBoard(Long id, Board board) {
+        boardRepository.updateTitle(id, board.getName());
+        return boardRepository.findById(id).get();
     }
 
     @Override

@@ -1,25 +1,25 @@
 package tis.project.lion.postproject.api.controller;
 
-import tis.project.lion.postproject.api.form.InputPostForm;
 import tis.project.lion.postproject.api.message.ResponseMessage;
+import tis.project.lion.postproject.domain.PostRequest;
 
 public interface PostController {
     //리스트는 board id가 필요
 //    public String getPostListForm(Long board_id);
-    public ResponseMessage getPostList(Long board_id);
+    ResponseMessage getPostList(Long board_id);
 
 //    public String getPostOneForm(Long post_id);
 
-    public ResponseMessage getPostOne(Long post_id);
+    ResponseMessage getPostOne(Long post_id);
 
     //board id는 어떻게 넘겨줘야 하지?
 //    public String createPostForm(Long board_id);
 
-    public ResponseMessage createPost(InputPostForm postForm);
+    ResponseMessage createPost(PostRequest postDto);
 
 //    public String updatePostForm();
 
-    public ResponseMessage editPost(InputPostForm postForm);
+    ResponseMessage editPost(Long post_id, PostRequest postDto);
 
-    public ResponseMessage deletePost(Long post_id);
+    ResponseMessage deletePost(Long post_id);
 }

@@ -1,6 +1,7 @@
 package tis.project.lion.postproject.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Board {
@@ -11,12 +12,20 @@ public class Board {
 
     private String name;
 
-    public Board() {
-    }
+    @OneToMany(mappedBy = "board")
+    private List<Post> postList;
 
     public Board(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Board(String name, List<Post> postList) {
+        this.name = name;
+        this.postList = postList;
+    }
+
+    public Board() {
     }
 
     public Board(String name) {
@@ -27,16 +36,15 @@ public class Board {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         this.name = name;
     }
 
+    public List<Post> getPostList() {
+        return postList;
+    }
 }

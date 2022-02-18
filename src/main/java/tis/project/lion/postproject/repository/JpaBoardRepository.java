@@ -19,8 +19,9 @@ public interface JpaBoardRepository extends JpaRepository<Board, Long>, BoardRep
     Optional<Board> findById(Long aLong);
 
     @Override
-    void deleteById(Long aLong);
+    void deleteById(Long id);
 
+    @Override
     @Modifying
     @Query("UPDATE Board p SET p.name = :name WHERE p.id = :id")
     void updateTitle(Long id, String name);

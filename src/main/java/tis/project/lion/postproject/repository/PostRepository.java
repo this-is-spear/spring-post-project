@@ -1,17 +1,18 @@
 package tis.project.lion.postproject.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import tis.project.lion.postproject.domain.Post;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository {
-    public void save(Post post);
+    <S extends Post> S save(S entity);
 
-    public List<Post> findByBoardId(Long id);
+    List<Post> findByBoardId(Long id);
 
-    public Optional<Post> findById(Long id);
+    Optional<Post> findById(Long id);
 
-    public void delete(Post post);
+    void deleteById(Long id);
+
+    void updateTitleAndContent(Long id, String Title, String Content);
 }

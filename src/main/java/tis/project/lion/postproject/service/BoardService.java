@@ -10,7 +10,7 @@ public interface BoardService {
 
     Board findBoardOne(Long id);
 
-    Board editBoard(Board board);
+    Board editBoard(Long id, Board board);
 
     void deleteBoard(Long id) throws DeleteException;
 }

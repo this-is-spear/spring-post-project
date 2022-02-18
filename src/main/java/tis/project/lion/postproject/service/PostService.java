@@ -1,20 +1,20 @@
 package tis.project.lion.postproject.service;
 
 import tis.project.lion.postproject.domain.Post;
-import tis.project.lion.postproject.domain.PostDto;
+import tis.project.lion.postproject.domain.PostRequest;
 
 import java.util.List;
 
 public interface PostService {
     //post CRUD;
 
-    void createPost(PostDto postDto);
+    void createPost(PostRequest postDto);
 
     List<Post> findPostList();
 
-    Post findPostOne(PostDto postDto);
+    Post findPostOne(PostRequest postDto);
 
-    void editPost(PostDto postDto);
+    void editPost(PostRequest postDto);
 
-    void deletePost(PostDto postDto);
+    void deletePost(PostRequest postDto);
 }
