@@ -1,6 +1,6 @@
 package tis.project.lion.postproject.api.controller;
 
-import tis.project.lion.postproject.domain.BoardResponse;
+import tis.project.lion.postproject.domain.board.BoardResponse;
 import tis.project.lion.postproject.api.message.ResponseMessage;
 import tis.project.lion.postproject.exception.DeleteException;
 

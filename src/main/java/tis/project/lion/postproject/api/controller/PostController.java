@@ -1,7 +1,7 @@
 package tis.project.lion.postproject.api.controller;
 
 import tis.project.lion.postproject.api.message.ResponseMessage;
-import tis.project.lion.postproject.domain.PostRequest;
+import tis.project.lion.postproject.domain.post.PostRequest;
 
 public interface PostController {
     //리스트는 board id가 필요

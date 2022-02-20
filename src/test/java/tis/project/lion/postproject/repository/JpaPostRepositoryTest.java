@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import tis.project.lion.postproject.domain.Board;
-import tis.project.lion.postproject.domain.Post;
+import tis.project.lion.postproject.domain.board.Board;
+import tis.project.lion.postproject.domain.post.Post;
 
 import java.util.List;
 import java.util.Optional;

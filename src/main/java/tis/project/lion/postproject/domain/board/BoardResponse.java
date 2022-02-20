@@ -1,4 +1,4 @@
-package tis.project.lion.postproject.domain;
+package tis.project.lion.postproject.domain.board;
 
 public class BoardResponse {
 

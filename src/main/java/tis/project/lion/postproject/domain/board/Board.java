@@ -1,4 +1,6 @@
-package tis.project.lion.postproject.domain;
+package tis.project.lion.postproject.domain.board;
+
+import tis.project.lion.postproject.domain.post.Post;
 
 import javax.persistence.*;
 import java.util.List;
