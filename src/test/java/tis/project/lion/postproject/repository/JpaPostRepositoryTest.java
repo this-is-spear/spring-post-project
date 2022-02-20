@@ -33,20 +33,20 @@ class JpaPostRepositoryTest {
 
     @Test
     void save() {
-        Post post = new Post(board, "title", "tis", "content", "password");
+        Post post = new Post(null, board, "title", "tis", "content", "password");
         postRepository.save(post);
     }
 
     @Test
     void edit() {
-        Post post = new Post(board, "title", "tis", "content", "password");
+        Post post = new Post(null, board, "title", "tis", "content", "password");
         postRepository.save(post);
         postRepository.updateTitleAndContent(post.getId(), "edit", "editContent");
     }
 
     @Test
     void findOne() {
-        Post post = new Post(board, "title", "tis", "content", "password");
+        Post post = new Post(null, board, "title", "tis", "content", "password");
         postRepository.save(post);
         Optional<Post> findPost = postRepository.findById(post.getId());
         System.out.println("findPost = " + findPost.get().getId());
@@ -55,7 +55,7 @@ class JpaPostRepositoryTest {
     @Test
     void findList() {
         for (int i = 0; i < 50; i++) {
-            Post post = new Post(board, "title"+i, "tis", "content", "password");
+            Post post = new Post(null, board, "title"+i, "tis", "content", "password");
             postRepository.save(post);
         }
         List<Post> postList = postRepository.findByBoardId(board.getId());
@@ -66,7 +66,7 @@ class JpaPostRepositoryTest {
 
     @Test
     void delete() {
-        Post post = new Post(board, "title", "tis", "content", "password");
+        Post post = new Post(null, board, "title", "tis", "content", "password");
         Post savePost = postRepository.save(post);
         System.out.println("savePost = " + savePost.getId());
 

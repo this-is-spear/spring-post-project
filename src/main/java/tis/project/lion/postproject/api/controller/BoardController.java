@@ -1,16 +1,16 @@
 package tis.project.lion.postproject.api.controller;
 
-import tis.project.lion.postproject.domain.board.BoardResponse;
-import tis.project.lion.postproject.api.message.ResponseMessage;
+import tis.project.lion.postproject.domain.ApiResult;
+import tis.project.lion.postproject.domain.board.BoardDto;
 import tis.project.lion.postproject.exception.DeleteException;
 
 public interface BoardController {
 //    public String getBoardListForm();
-    ResponseMessage getBoardOne(Long board_id);
+    ApiResult<BoardDto> getBoardOne(Long board_id);
 //    public String createForm();
-    ResponseMessage createBoard(BoardResponse boardDto);
+    ApiResult<BoardDto> createBoard(BoardDto boardDto);
 //    public String updateForm(Long board_id);
-    ResponseMessage editBoard(Long board_id, BoardResponse boardDto);
+    ApiResult<BoardDto> editBoard(Long board_id, BoardDto boardDto);
 
-    ResponseMessage deleteBoard(Long board_id) throws DeleteException;
+    ApiResult<String> deleteBoard(Long board_id) throws DeleteException;
 }

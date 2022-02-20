@@ -1,12 +1,14 @@
 package tis.project.lion.postproject.domain.board;
 
-public class BoardResponse {
+public class BoardDto {
 
 //    private static Long id;
 
-    private final String name;
+    private String name;
 
-    public BoardResponse(String name) {
+    public BoardDto() {}
+
+    public BoardDto(String name) {
         this.name = name;
     }
 

@@ -1,12 +1,9 @@
 package tis.project.lion.postproject.domain.post;
 
 import tis.project.lion.postproject.domain.board.Board;
+import tis.project.lion.postproject.domain.board.BoardDto;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-public class PostRequest {
+public class PostDto {
 
     private String title;
 
@@ -14,16 +11,10 @@ public class PostRequest {
 
     private String content;
 
-    private String password;
-
-    public PostRequest(String title, String writer, String content, String password) {
+    public PostDto(String title, String writer, String content) {
         this.title = title;
         this.writer = writer;
         this.content = content;
-        this.password = password;
-    }
-
-    public PostRequest() {
     }
 
     public String getTitle() {
@@ -38,11 +29,7 @@ public class PostRequest {
         return content;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public Post convertPost() {
-        return new Post(this.title, this.writer, this.content, this.password);
+        return new Post(this.title, this.writer, this.content);
     }
 }

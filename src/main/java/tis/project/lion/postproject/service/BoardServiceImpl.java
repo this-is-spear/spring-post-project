@@ -16,9 +16,8 @@ import java.util.Optional;
 @Transactional
 public class BoardServiceImpl implements BoardService{
 
-    JpaBoardRepository boardRepository;
+    private final JpaBoardRepository boardRepository;
 
-    @Autowired
     public BoardServiceImpl(JpaBoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
@@ -29,6 +28,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Board findBoardOne(Long board_id) {
         Optional<Board> findBoard = boardRepository.findById(board_id);
         return findBoard.get();
@@ -37,7 +37,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Board editBoard(Long board_id, Board board) {
         boardRepository.updateTitle(board_id, board.getName());
-        return boardRepository.findById(board_id).get();
+        return board;
     }
 
     @Override

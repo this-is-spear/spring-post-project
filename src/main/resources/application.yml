@@ -7,6 +7,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+#  sql:
+#    init:
+#      platform: mysql
+#      schema-locations: classpath:schema-h2.sql
+#      data-locations: classpath:data.sql
 logging:
   level:
-    root: debug
+    root: info

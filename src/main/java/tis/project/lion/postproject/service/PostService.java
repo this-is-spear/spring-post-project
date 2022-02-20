@@ -7,7 +7,7 @@ import java.util.List;
 public interface PostService {
     //post CRUD;
 
-    Post createPost(Post postDto);
+    Post createPost(Post post);
 
     List<Post> findPostList(Long board_id);
 

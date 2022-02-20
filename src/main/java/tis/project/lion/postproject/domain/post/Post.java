@@ -32,8 +32,7 @@ public class Post {
         this.password = password;
     }
 
-    public Post(Board board, String title, String writer, String content, String password) {
-        this.board = board;
+    public Post(String title, String writer, String content, String password) {
         this.title = title;
         this.writer = writer;
         this.content = content;
@@ -49,7 +48,6 @@ public class Post {
     public Post() {
 
     }
-
     public Long getId() {
         return id;
     }
@@ -90,8 +88,11 @@ public class Post {
         this.board = board;
     }
 
-    public PostResponse convertPostResponse() {
-        return new PostResponse(this.title, this.writer, this.content);
+    public PostRequest convertPostResponse() {
+        return new PostRequest(this.title, this.writer, this.content, this.password);
     }
 
+    public PostDto convertPostDto() {
+        return new PostDto(this.getTitle(), this.getWriter(), this.getContent());
+    }
 }

@@ -3,18 +3,20 @@ package tis.project.lion.postproject.api.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tis.project.lion.postproject.domain.ApiResult;
 import tis.project.lion.postproject.domain.board.Board;
-import tis.project.lion.postproject.domain.board.BoardResponse;
+import tis.project.lion.postproject.domain.board.BoardDto;
 import tis.project.lion.postproject.exception.DeleteException;
 import tis.project.lion.postproject.service.BoardService;
-import tis.project.lion.postproject.api.message.ResponseMessage;
+
+import javax.annotation.PostConstruct;
 
 @Slf4j
 @RestController
 @RequestMapping("/boards")
 public class BoardControllerImpl implements BoardController{
 
-    BoardService boardService;
+    private final BoardService boardService;
 
     @Autowired
     public BoardControllerImpl(BoardService boardService) {
@@ -23,38 +25,35 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @GetMapping("/{board_id}")
-    public ResponseMessage getBoardOne(@PathVariable Long board_id) {
-        Board findBoard = boardService.findBoardOne(board_id);
+    public ApiResult<BoardDto> getBoardOne(@PathVariable Long board_id) {
         log.debug("call {} {}",getClass().getName(), board_id);
-        ResponseMessage message = new ResponseMessage(true, "OK"+ findBoard.getName());
-        return message;
+        Board board = boardService.findBoardOne(board_id);
+        return ApiResult.OK(new BoardDto(board.getName()));
     }
 
     @Override
     @PostMapping
-    public ResponseMessage createBoard(@RequestBody BoardResponse boardDto) {
-
+    public ApiResult<BoardDto> createBoard(@RequestBody BoardDto boardDto) {
         log.debug("call {} {} {}",getClass().getName(), boardDto, boardDto.getName());
-        boardService.createBoard(boardDto.convertBoard());
-        ResponseMessage message = new ResponseMessage(true, "OK");
-        return message;
+        Board board = boardService.createBoard(boardDto.convertBoard());
+        return ApiResult.OK(new BoardDto(board.getName()));
     }
 
     @Override
     @PatchMapping("/{board_id}")
-    public ResponseMessage editBoard(@PathVariable Long board_id, @RequestBody BoardResponse boardDto) {
+    public ApiResult<BoardDto> editBoard(@PathVariable Long board_id, @RequestBody BoardDto boardDto) {
         log.debug("call {} {} {}",getClass().getName(), boardDto.getName(), board_id);
-        boardService.editBoard(board_id, boardDto.convertBoard());
-        ResponseMessage message = new ResponseMessage(true, "OK");
-        return message;
+        Board board = boardService.editBoard(board_id, boardDto.convertBoard());
+        return ApiResult.OK(new BoardDto(board.getName()));
     }
 
     @Override
     @DeleteMapping("/{board_id}")
-    public ResponseMessage deleteBoard(@PathVariable Long board_id) throws DeleteException {
+    public ApiResult<String> deleteBoard(@PathVariable Long board_id) throws DeleteException {
         log.debug("call {} {}",getClass().getName(), board_id);
         boardService.deleteBoard(board_id);
-        ResponseMessage message = new ResponseMessage(true, "OK");
-        return message;
+        return ApiResult.OK("delete OK");
     }
+
+
 }
