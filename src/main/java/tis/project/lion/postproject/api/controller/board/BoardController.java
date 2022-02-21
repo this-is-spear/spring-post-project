@@ -5,11 +5,11 @@ import tis.project.lion.postproject.exception.DeleteException;
 
 public interface BoardController {
 
-    ApiResult<BoardDto> getBoardOne(Long board_id);
+    ApiResult<BoardResponse> getBoardOne(Long board_id);
 
-    ApiResult<BoardDto> createBoard(BoardDto boardDto);
+    ApiResult<BoardResponse> createBoard(BoardResponse boardDto);
 
-    ApiResult<BoardDto> editBoard(Long board_id, BoardDto boardDto);
+    ApiResult<BoardResponse> editBoard(Long board_id, BoardResponse boardDto);
 
     ApiResult<String> deleteBoard(Long board_id) throws DeleteException;
 }

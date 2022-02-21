@@ -8,7 +8,7 @@ import tis.project.lion.postproject.service.PostService;
 import static tis.project.lion.postproject.api.controller.ApiResult.*;
 
 @RestController
-@RequestMapping("/post")
+@RequestMapping("/posts")
 public class PostControllerImpl implements PostController{
 	private final PostService postService;
 	public PostControllerImpl(PostService postService) {
@@ -16,22 +16,22 @@ public class PostControllerImpl implements PostController{
 	}
 
 	@Override
-	@GetMapping("post-one/{post_id}")
-	public ApiResult<PostDto> getPostOne(@PathVariable Long post_id) {
+	@GetMapping("/{post_id}")
+	public ApiResult<DetailPostResponse> getPostOne(@PathVariable Long post_id) {
 		Post post = postService.findPostOne(post_id);
 		return OK(getPostDto(post));
 	}
 
 	@Override
-	@PostMapping("/create")
-	public ApiResult<PostDto> createPost(@RequestBody PostRequest postRequest) {
+	@PostMapping
+	public ApiResult<DetailPostResponse> createPost(@RequestBody PostRequest postRequest) {
 		Post post = postService.createPost(postRequest.convertPost());
 		return OK(getPostDto(post));
 	}
 
 	@Override
 	@PatchMapping("/{post_id}")
-	public ApiResult<PostDto> editPost(@PathVariable Long post_id, @RequestBody PostDto postDto) {
+	public ApiResult<DetailPostResponse> editPost(@PathVariable Long post_id, @RequestBody DetailPostResponse postDto) {
 		Post post = postService.editPost(post_id, postDto.convertPost());
 		return OK(getPostDto(post));
 	}
@@ -43,8 +43,8 @@ public class PostControllerImpl implements PostController{
 		return OK("삭제 성공");
 	}
 
-	private PostDto getPostDto(Post post) {
-		return post.convertPostDto();
+	private DetailPostResponse getPostDto(Post post) {
+		return post.convertPostToDetailPostResponse();
 	}
 
 }

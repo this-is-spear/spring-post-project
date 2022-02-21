@@ -1,7 +1,8 @@
 package tis.project.lion.postproject.domain.post;
 
-import tis.project.lion.postproject.api.controller.post.PostDto;
+import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
 import tis.project.lion.postproject.api.controller.post.PostRequest;
+import tis.project.lion.postproject.api.controller.post.SimplePostResponse;
 import tis.project.lion.postproject.domain.board.Board;
 
 import javax.persistence.*;
@@ -94,7 +95,11 @@ public class Post {
         return new PostRequest(this.title, this.writer, this.content, this.password);
     }
 
-    public PostDto convertPostDto() {
-        return new PostDto(this.getTitle(), this.getWriter(), this.getContent());
+    public DetailPostResponse convertPostToDetailPostResponse() {
+        return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent());
+    }
+
+    public SimplePostResponse convertPostToSimplePostResponse() {
+        return SimplePostResponse.createPostResponse(this.getId(), this.getTitle(), this.getContent());
     }
 }

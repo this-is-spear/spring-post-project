@@ -3,18 +3,22 @@ package tis.project.lion.postproject.api.controller.post;
 
 import tis.project.lion.postproject.domain.post.Post;
 
-public class PostDto {
+public class DetailPostResponse {
 
-    private String title;
+    private final String title;
 
-    private String writer;
+    private final String writer;
 
-    private String content;
+    private final String content;
 
-    public PostDto(String title, String writer, String content) {
+    public DetailPostResponse(String title, String writer, String content) {
         this.title = title;
         this.writer = writer;
         this.content = content;
+    }
+
+    public static DetailPostResponse createDetailPostResponse(String title, String writer, String content) {
+        return new DetailPostResponse(title, writer, content);
     }
 
     public String getTitle() {

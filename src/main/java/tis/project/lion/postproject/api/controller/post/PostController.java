@@ -5,11 +5,11 @@ import tis.project.lion.postproject.api.controller.ApiResult;
 
 public interface PostController {
 
-    ApiResult<PostDto> getPostOne(Long post_id);
+    ApiResult<DetailPostResponse> getPostOne(Long post_id);
 
-    ApiResult<PostDto> createPost(PostRequest postRequest);
+    ApiResult<DetailPostResponse> createPost(PostRequest postRequest);
 
-    ApiResult<PostDto> editPost(Long post_id, PostDto postDto);
+    ApiResult<DetailPostResponse> editPost(Long post_id, DetailPostResponse postDto);
 
     ApiResult<String> deletePost(Long post_id);
 }

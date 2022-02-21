@@ -1,24 +1,25 @@
 package tis.project.lion.postproject.api.controller.board;
 
+import tis.project.lion.postproject.api.controller.post.SimplePostResponse;
 import tis.project.lion.postproject.domain.board.Board;
-import tis.project.lion.postproject.api.controller.post.PostDto;
+import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
 
 import java.util.List;
-public class BoardDto {
+public class BoardResponse {
 
 //    private static Long id;
 
     private String name;
 
-    private List<PostDto> postList;
+    private List<SimplePostResponse> postList;
 
-    public BoardDto() {}
+    public BoardResponse() {}
 
-    public BoardDto(String name) {
+    public BoardResponse(String name) {
         this.name = name;
     }
 
-    public BoardDto(String name, List<PostDto> postList) {
+    public BoardResponse(String name, List<SimplePostResponse> postList) {
         this.name = name;
         this.postList = postList;
     }
@@ -27,7 +28,7 @@ public class BoardDto {
         return name;
     }
 
-    public List<PostDto> getPostList() {
+    public List<SimplePostResponse> getPostList() {
         return postList;
     }
 

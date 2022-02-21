@@ -4,9 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import tis.project.lion.postproject.api.controller.ApiResult;
+import tis.project.lion.postproject.api.controller.post.SimplePostResponse;
 import tis.project.lion.postproject.domain.board.Board;
 import tis.project.lion.postproject.domain.post.Post;
-import tis.project.lion.postproject.api.controller.post.PostDto;
+import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
 import tis.project.lion.postproject.exception.DeleteException;
 import tis.project.lion.postproject.service.BoardService;
 
@@ -29,7 +30,7 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @GetMapping("/{board_id}")
-    public ApiResult<BoardDto> getBoardOne(@PathVariable Long board_id) {
+    public ApiResult<BoardResponse> getBoardOne(@PathVariable Long board_id) {
         log.debug("call {} {}",getClass().getName(), board_id);
         Board board = boardService.findBoardOne(board_id);
         return OK(getBoardDto(board));
@@ -37,7 +38,7 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PostMapping
-    public ApiResult<BoardDto> createBoard(@RequestBody BoardDto boardDto) {
+    public ApiResult<BoardResponse> createBoard(@RequestBody BoardResponse boardDto) {
         log.debug("call {} {} {}",getClass().getName(), boardDto, boardDto.getName());
         Board board = boardService.createBoard(boardDto.convertBoard());
         return OK(getBoardDto(board));
@@ -45,7 +46,7 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PatchMapping("/{board_id}")
-    public ApiResult<BoardDto> editBoard(@PathVariable Long board_id, @RequestBody BoardDto boardDto) {
+    public ApiResult<BoardResponse> editBoard(@PathVariable Long board_id, @RequestBody BoardResponse boardDto) {
         log.debug("call {} {} {}",getClass().getName(), boardDto.getName(), board_id);
         Board board = boardService.editBoard(board_id, boardDto.convertBoard());
         return OK(getBoardDto(board));
@@ -59,11 +60,11 @@ public class BoardControllerImpl implements BoardController{
         return OK("delete OK");
     }
 
-    private List<PostDto> getPostDtoList(List<Post> postList) {
-        return postList.stream().map(Post::convertPostDto).collect(Collectors.toList());
+    private List<SimplePostResponse> getSimplePostResponseList(List<Post> postList) {
+        return postList.stream().map(Post::convertPostToSimplePostResponse).collect(Collectors.toList());
     }
 
-    private BoardDto getBoardDto(Board board) {
-        return new BoardDto(board.getName(), getPostDtoList(board.getPostList()));
+    private BoardResponse getBoardDto(Board board) {
+        return new BoardResponse(board.getName(), getSimplePostResponseList(board.getPostList()));
     }
 }
