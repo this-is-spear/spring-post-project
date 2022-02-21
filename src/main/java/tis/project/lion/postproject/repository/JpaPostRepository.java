@@ -23,9 +23,4 @@ public interface JpaPostRepository extends JpaRepository<Post, Long>, PostReposi
 
     @Override
     Optional<Post> findById(Long aLong);
-
-    @Override
-    @Modifying
-    @Query("UPDATE Post p SET p.title = :Title, p.content = :content WHERE p.id = :id")
-    void updateTitleAndContent(Long id, String Title, String content);
 }

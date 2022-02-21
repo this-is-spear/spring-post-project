@@ -13,6 +13,4 @@ public interface PostRepository {
     Optional<Post> findById(Long id);
 
     void deleteById(Long id);
-
-    void updateTitleAndContent(Long id, String Title, String Content);
 }

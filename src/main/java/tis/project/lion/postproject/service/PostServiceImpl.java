@@ -35,8 +35,23 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	public Post editPost(Long post_id, Post post) {
-		postRepository.updateTitleAndContent(post_id, post.getTitle(), post.getContent());
-		return post;
+		Post findPost = findPostOne(post_id);
+		if (post.getTitle() != null) {
+			findPost.setTitle(post.getTitle());
+		}
+		if (post.getContent() != null) {
+			findPost.setContent(post.getContent());
+		}
+		if (!post.getImagesFiles().isEmpty()) {
+			findPost.setImagesFiles(post.getImagesFiles());
+		}
+		if (post.getWriter() != null) {
+			findPost.setWriter(post.getWriter());
+		}
+		if (post.getPassword() != null) {
+			findPost.setPassword(post.getPassword());
+		}
+		return postRepository.save(findPost);
 	}
 
 	@Override
