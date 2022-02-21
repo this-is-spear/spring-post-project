@@ -1,13 +1,11 @@
-package tis.project.lion.postproject.api.controller;
+package tis.project.lion.postproject.api.controller.post;
 
 import org.springframework.web.bind.annotation.*;
-import tis.project.lion.postproject.domain.ApiResult;
+import tis.project.lion.postproject.api.controller.ApiResult;
 import tis.project.lion.postproject.domain.post.Post;
-import tis.project.lion.postproject.domain.post.PostDto;
-import tis.project.lion.postproject.domain.post.PostRequest;
 import tis.project.lion.postproject.service.PostService;
 
-import static tis.project.lion.postproject.domain.ApiResult.*;
+import static tis.project.lion.postproject.api.controller.ApiResult.*;
 
 @RestController
 @RequestMapping("/post")

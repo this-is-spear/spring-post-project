@@ -1,4 +1,6 @@
-package tis.project.lion.postproject.domain.post;
+package tis.project.lion.postproject.api.controller.post;
+
+import tis.project.lion.postproject.domain.post.Post;
 
 public class PostRequest {
 

@@ -1,6 +1,7 @@
-package tis.project.lion.postproject.domain.board;
+package tis.project.lion.postproject.api.controller.board;
 
-import tis.project.lion.postproject.domain.post.PostDto;
+import tis.project.lion.postproject.domain.board.Board;
+import tis.project.lion.postproject.api.controller.post.PostDto;
 
 import java.util.List;
 public class BoardDto {

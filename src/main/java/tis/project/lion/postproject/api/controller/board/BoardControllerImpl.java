@@ -1,20 +1,19 @@
-package tis.project.lion.postproject.api.controller;
+package tis.project.lion.postproject.api.controller.board;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import tis.project.lion.postproject.domain.ApiResult;
+import tis.project.lion.postproject.api.controller.ApiResult;
 import tis.project.lion.postproject.domain.board.Board;
-import tis.project.lion.postproject.domain.board.BoardDto;
 import tis.project.lion.postproject.domain.post.Post;
-import tis.project.lion.postproject.domain.post.PostDto;
+import tis.project.lion.postproject.api.controller.post.PostDto;
 import tis.project.lion.postproject.exception.DeleteException;
 import tis.project.lion.postproject.service.BoardService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static tis.project.lion.postproject.domain.ApiResult.*;
+import static tis.project.lion.postproject.api.controller.ApiResult.*;
 
 @Slf4j
 @RestController
@@ -43,8 +42,6 @@ public class BoardControllerImpl implements BoardController{
         Board board = boardService.createBoard(boardDto.convertBoard());
         return OK(getBoardDto(board));
     }
-
-
 
     @Override
     @PatchMapping("/{board_id}")

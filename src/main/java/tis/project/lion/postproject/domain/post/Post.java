@@ -1,5 +1,7 @@
 package tis.project.lion.postproject.domain.post;
 
+import tis.project.lion.postproject.api.controller.post.PostDto;
+import tis.project.lion.postproject.api.controller.post.PostRequest;
 import tis.project.lion.postproject.domain.board.Board;
 
 import javax.persistence.*;
