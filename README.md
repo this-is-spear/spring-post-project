@@ -103,7 +103,7 @@ private BoardResponse getBoardDto(Board board) {
 
 ### Board 객체 하나를 가져오는 전체적인 흐름
 해당 Board 엔티티에 post list는 `@OneToMany`의 기본값인 `etch = FetchType.LAZY` 이기 때문에 프록시 객체가 들어가 있다가 
-controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 값을 참조하게 된다.
+controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 값을 참조하게 됩니다.
 <img width="691" alt="전체적인흐름" src="https://user-images.githubusercontent.com/92219795/154925494-896eb32b-8e2f-4460-a575-e484fc0d38fb.png">
 
 
@@ -148,10 +148,8 @@ controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 
 2. Spring Boot로 보내진`multipart/form-data`의 요청에서 파일을 어떻게 저장할지를 고려해 봅시다.
 3. HTML 문서에서, 이미지를 표현하기 위한 방법이 무엇인지를 고려해 봅시다.
 
-<aside>
-💡 베이직 미션의 커뮤니티를 만들때는 게시글에 오로지 문자만 입력이 가능합니다. 백엔드 서버의 관점에서, 게시글에 여러장의 사진을 첨부하거나, 파일을 첨부하는 기능을 만들어야 할때 어떻게 개발을 진행할지를 고민해 봅시다.
 
-</aside>
+> 💡 베이직 미션의 커뮤니티를 만들때는 게시글에 오로지 문자만 입력이 가능합니다. 백엔드 서버의 관점에서, 게시글에 여러장의 사진을 첨부하거나, 파일을 첨부하는 기능을 만들어야 할때 어떻게 개발을 진행할지를 고민해 봅시다.
 
 ### 세부 조건
 
@@ -159,13 +157,15 @@ controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 
 2. 게시글을 만들기 위한 CRUD 작업 자체는`Content-Type: application/json`을 유지할 수 있도록 합시다.
 3. 게시글을 제시할 웹 페이지에서는, 게시글의 content를`HTML`로 기대하고 있다고 가정합니다. 만약 Thymeleaf를 이용해 출력한다면, 아래와 유사한 형태의 태그를 사용하게 될것입니다.
 
-    ```html
-    <h1 th:text="${post.title}" />
-    <!-- 게시글에 이미지가 있다면 아래 element 내부에서 출력될것 입니다. -->
-    <div th:utext="${post.content}" />
-    <p th:text="${post.writer}" />
-    ```
+```html
 
+<h1 th:text="${post.title}" />
+<!-- 게시글에 이미지가 있다면 아래 element 내부에서 출력될것 입니다. -->
+<div th:utext="${post.content}" />
+<p th:text="${post.writer}" />
+
+```
+    
 ## API를 이용한 화면
 
 ### 생성
@@ -186,3 +186,4 @@ controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 
 ### view-file
 
 <img width="1365" alt="스크린샷 2022-02-22 오전 12 46 14" src="https://user-images.githubusercontent.com/92219795/154987606-edf155ac-604c-42b2-89a1-57de2ed1c865.png">
+
