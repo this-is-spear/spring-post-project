@@ -103,7 +103,7 @@ private BoardResponse getBoardDto(Board board) {
 
 ### Board 객체 하나를 가져오는 전체적인 흐름
 해당 Board 엔티티에 post list는 `@OneToMany`의 기본값인 `etch = FetchType.LAZY` 이기 때문에 프록시 객체가 들어가 있다가 
-controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 값을 참조하게 된다.
+controller에서 post list를 호출하면서 해당 프록시 객체의 진짜 값을 참조하게 됩니다.
 <img width="691" alt="전체적인흐름" src="https://user-images.githubusercontent.com/92219795/154925494-896eb32b-8e2f-4460-a575-e484fc0d38fb.png">
 
 
