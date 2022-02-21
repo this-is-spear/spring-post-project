@@ -3,6 +3,7 @@ package tis.project.lion.postproject.domain.board;
 import tis.project.lion.postproject.domain.post.Post;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,8 +15,8 @@ public class Board {
 
     private String name;
 
-    @OneToMany(mappedBy = "board")
-    private List<Post> postList;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> postList = new ArrayList<>();
 
     public Board(Long id, String name) {
         this.id = id;
@@ -49,4 +50,6 @@ public class Board {
     public List<Post> getPostList() {
         return postList;
     }
+
+
 }

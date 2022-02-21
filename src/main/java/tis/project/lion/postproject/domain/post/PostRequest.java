@@ -1,11 +1,5 @@
 package tis.project.lion.postproject.domain.post;
 
-import tis.project.lion.postproject.domain.board.Board;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 public class PostRequest {
 
     private String title;

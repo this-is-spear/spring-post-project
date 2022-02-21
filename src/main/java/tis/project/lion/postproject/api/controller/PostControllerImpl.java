@@ -7,9 +7,7 @@ import tis.project.lion.postproject.domain.post.PostDto;
 import tis.project.lion.postproject.domain.post.PostRequest;
 import tis.project.lion.postproject.service.PostService;
 
-import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.stream.Collectors;
+import static tis.project.lion.postproject.domain.ApiResult.*;
 
 @RestController
 @RequestMapping("/post")
@@ -20,38 +18,35 @@ public class PostControllerImpl implements PostController{
 	}
 
 	@Override
-	@GetMapping("post-list/{board_id}")
-	public ApiResult<List<PostDto>> getPostList(@PathVariable Long board_id) {
-		List<Post> postList = postService.findPostList(board_id);
-		return ApiResult.OK(postList.stream().map(Post::convertPostDto).collect(Collectors.toList()));
-	}
-
-	@Override
 	@GetMapping("post-one/{post_id}")
 	public ApiResult<PostDto> getPostOne(@PathVariable Long post_id) {
 		Post post = postService.findPostOne(post_id);
-		return ApiResult.OK(post.convertPostDto());
+		return OK(getPostDto(post));
 	}
 
 	@Override
 	@PostMapping("/create")
 	public ApiResult<PostDto> createPost(@RequestBody PostRequest postRequest) {
 		Post post = postService.createPost(postRequest.convertPost());
-		return ApiResult.OK(post.convertPostDto());
+		return OK(getPostDto(post));
 	}
 
 	@Override
 	@PatchMapping("/{post_id}")
 	public ApiResult<PostDto> editPost(@PathVariable Long post_id, @RequestBody PostDto postDto) {
 		Post post = postService.editPost(post_id, postDto.convertPost());
-		return ApiResult.OK(postDto);
+		return OK(getPostDto(post));
 	}
 
 	@Override
 	@DeleteMapping("/{post_id}")
 	public ApiResult<String> deletePost(@PathVariable Long post_id) {
 		postService.deletePost(post_id);
-		return ApiResult.OK("삭제 성공");
+		return OK("삭제 성공");
+	}
+
+	private PostDto getPostDto(Post post) {
+		return post.convertPostDto();
 	}
 
 }

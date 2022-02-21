@@ -3,20 +3,18 @@ package tis.project.lion.postproject.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tis.project.lion.postproject.domain.post.Post;
-import tis.project.lion.postproject.repository.BoardRepository;
+import tis.project.lion.postproject.exception.NoPostException;
 import tis.project.lion.postproject.repository.PostRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class PostServiceImpl implements PostService{
 
-	private final BoardRepository boardRepository;
 	private final PostRepository postRepository;
 
-	public PostServiceImpl(BoardRepository boardRepository, PostRepository postRepository) {
-		this.boardRepository = boardRepository;
+	public PostServiceImpl(PostRepository postRepository) {
 		this.postRepository = postRepository;
 	}
 
@@ -27,14 +25,12 @@ public class PostServiceImpl implements PostService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Post> findPostList(Long board_id) {
-		return postRepository.findByBoardId(board_id);
-	}
-
-	@Override
-	@Transactional(readOnly = true)
 	public Post findPostOne(Long post_id) {
-		return postRepository.findById(post_id).get();
+		Optional<Post> findPost = postRepository.findById(post_id);
+		if (findPost.isEmpty()) {
+			throw new NoPostException("게시글이 존재하지 않습니다.");
+		}
+		return findPost.get();
 	}
 
 	@Override

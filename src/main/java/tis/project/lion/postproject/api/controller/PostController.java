@@ -1,16 +1,13 @@
 package tis.project.lion.postproject.api.controller;
 
-import tis.project.lion.postproject.api.message.ResponseMessage;
 import tis.project.lion.postproject.domain.ApiResult;
 import tis.project.lion.postproject.domain.post.PostDto;
 import tis.project.lion.postproject.domain.post.PostRequest;
 
-import java.util.List;
 
 public interface PostController {
     //리스트는 board id가 필요
 //    public String getPostListForm(Long board_id);
-    ApiResult<List<PostDto>> getPostList(Long board_id);
 
 //    public String getPostOneForm(Long post_id);
 

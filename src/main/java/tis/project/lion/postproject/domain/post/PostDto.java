@@ -1,7 +1,5 @@
 package tis.project.lion.postproject.domain.post;
 
-import tis.project.lion.postproject.domain.board.Board;
-import tis.project.lion.postproject.domain.board.BoardDto;
 
 public class PostDto {
 

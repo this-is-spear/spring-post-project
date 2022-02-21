@@ -1,13 +1,13 @@
 package tis.project.lion.postproject.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tis.project.lion.postproject.domain.board.Board;
 import tis.project.lion.postproject.exception.DeleteException;
-import tis.project.lion.postproject.repository.JpaBoardRepository;
+import tis.project.lion.postproject.exception.NoBoardException;
+import tis.project.lion.postproject.repository.BoardRepository;
 
 import java.util.Optional;
 
@@ -16,9 +16,9 @@ import java.util.Optional;
 @Transactional
 public class BoardServiceImpl implements BoardService{
 
-    private final JpaBoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
-    public BoardServiceImpl(JpaBoardRepository boardRepository) {
+    public BoardServiceImpl(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
     }
 
@@ -31,6 +31,9 @@ public class BoardServiceImpl implements BoardService{
     @Transactional(readOnly = true)
     public Board findBoardOne(Long board_id) {
         Optional<Board> findBoard = boardRepository.findById(board_id);
+        if (findBoard.isEmpty()) {
+            throw new NoBoardException("게시판이 존재하지 않습니다.");
+        }
         return findBoard.get();
     }
 
@@ -41,7 +44,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void deleteBoard(Long board_id) throws DeleteException {
+    public void deleteBoard(Long board_id) {
         try {
             boardRepository.deleteById(board_id);
         } catch (EmptyResultDataAccessException e) {
