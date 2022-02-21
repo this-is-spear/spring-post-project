@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import tis.project.lion.postproject.domain.Board;
+import tis.project.lion.postproject.domain.board.Board;
 import tis.project.lion.postproject.repository.BoardRepository;
 
 //@ExtendWith(MockitoExtension.class)

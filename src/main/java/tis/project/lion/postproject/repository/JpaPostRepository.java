@@ -3,7 +3,7 @@ package tis.project.lion.postproject.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import tis.project.lion.postproject.domain.Post;
+import tis.project.lion.postproject.domain.post.Post;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package tis.project.lion.postproject.repository;
 
-import tis.project.lion.postproject.domain.Board;
+import tis.project.lion.postproject.domain.board.Board;
 
 import java.util.Optional;
 
