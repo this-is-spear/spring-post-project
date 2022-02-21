@@ -1,49 +1,59 @@
 package tis.project.lion.postproject.api.controller.post;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tis.project.lion.postproject.api.controller.ApiResult;
+import tis.project.lion.postproject.api.controller.post.image.PostImageFileStore;
 import tis.project.lion.postproject.domain.post.Post;
 import tis.project.lion.postproject.service.PostService;
 
+import java.io.IOException;
+
 import static tis.project.lion.postproject.api.controller.ApiResult.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/posts")
 public class PostControllerImpl implements PostController{
 	private final PostService postService;
-	public PostControllerImpl(PostService postService) {
+	private final PostImageFileStore postImageFileStore;
+
+	public PostControllerImpl(PostService postService, PostImageFileStore postImageFileStore) {
 		this.postService = postService;
+		this.postImageFileStore = postImageFileStore;
 	}
 
 	@Override
-	@GetMapping("/{post_id}")
-	public ApiResult<DetailPostResponse> getPostOne(@PathVariable Long post_id) {
-		Post post = postService.findPostOne(post_id);
-		return OK(getPostDto(post));
+	@GetMapping("/{postId}")
+	public ApiResult<DetailPostResponse> getPostOne(@PathVariable Long postId) {
+		Post post = postService.findPostOne(postId);
+		return OK(getDetailPostResponse(post));
 	}
 
-	@Override
+//	@Override
 	@PostMapping
-	public ApiResult<DetailPostResponse> createPost(@RequestBody PostRequest postRequest) {
-		Post post = postService.createPost(postRequest.convertPost());
-		return OK(getPostDto(post));
+	public ApiResult<DetailPostResponse> createPost(@RequestBody PostRequest postRequest) throws IOException {
+		Post convertPost = postRequest.convertPost();
+		log.info("[{}][{}]", convertPost.getTitle(), convertPost.getContent());
+		Post post = postService.createPost(convertPost);
+		return OK(getDetailPostResponse(post));
 	}
 
 	@Override
-	@PatchMapping("/{post_id}")
-	public ApiResult<DetailPostResponse> editPost(@PathVariable Long post_id, @RequestBody DetailPostResponse postDto) {
-		Post post = postService.editPost(post_id, postDto.convertPost());
-		return OK(getPostDto(post));
+	@PatchMapping("/{postId}")
+	public ApiResult<DetailPostResponse> editPost(@PathVariable Long postId, @ModelAttribute DetailPostResponse postDto) {
+		Post post = postService.editPost(postId, postDto.convertPost());
+		return OK(getDetailPostResponse(post));
 	}
 
 	@Override
-	@DeleteMapping("/{post_id}")
-	public ApiResult<String> deletePost(@PathVariable Long post_id) {
-		postService.deletePost(post_id);
+	@DeleteMapping("/{postId}")
+	public ApiResult<String> deletePost(@PathVariable Long postId) {
+		postService.deletePost(postId);
 		return OK("삭제 성공");
 	}
 
-	private DetailPostResponse getPostDto(Post post) {
+	private DetailPostResponse getDetailPostResponse(Post post) {
 		return post.convertPostToDetailPostResponse();
 	}
 

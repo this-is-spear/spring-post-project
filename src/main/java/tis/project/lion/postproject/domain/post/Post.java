@@ -1,11 +1,16 @@
 package tis.project.lion.postproject.domain.post;
 
 import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
-import tis.project.lion.postproject.api.controller.post.PostRequest;
 import tis.project.lion.postproject.api.controller.post.SimplePostResponse;
+import tis.project.lion.postproject.api.controller.post.image.PostImageResponse;
 import tis.project.lion.postproject.domain.board.Board;
+import tis.project.lion.postproject.domain.image.PostImage;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 public class Post {
@@ -17,6 +22,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostImage> imagesFiles = new ArrayList<>();
 
     private String title;
 
@@ -75,8 +83,16 @@ public class Post {
         return password;
     }
 
+    public List<PostImage> getImagesFiles() {
+        return imagesFiles;
+    }
+
     private void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     private void setContent(String content) {
@@ -91,15 +107,39 @@ public class Post {
         this.board = board;
     }
 
-    public PostRequest convertPostResponse() {
-        return new PostRequest(this.title, this.writer, this.content, this.password);
-    }
-
     public DetailPostResponse convertPostToDetailPostResponse() {
-        return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent());
+        return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent(), convertPostImageToPostImageRequest());
     }
 
     public SimplePostResponse convertPostToSimplePostResponse() {
         return SimplePostResponse.createPostResponse(this.getId(), this.getTitle(), this.getContent());
+    }
+
+    public List<PostImageResponse> convertPostImageToPostImageRequest() {
+        return this.getImagesFiles().stream().map(PostImageResponse::convertPostImageToPostImageRequest).collect(Collectors.toList());
+    }
+
+    public void uploadImage(PostImage postImage) {
+        postImage.setPost(this);
+        this.getImagesFiles().add(postImage);
+    }
+
+    public void setImagesFiles(List<PostImage> imagesFiles) {
+        for (PostImage imagesFile : imagesFiles) {
+            this.uploadImage(imagesFile);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Post post = (Post) o;
+        return Objects.equals(getId(), post.getId()) && Objects.equals(getBoard(), post.getBoard()) && Objects.equals(getImagesFiles(), post.getImagesFiles()) && Objects.equals(getTitle(), post.getTitle()) && Objects.equals(getWriter(), post.getWriter()) && Objects.equals(getContent(), post.getContent()) && Objects.equals(getPassword(), post.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getBoard(), getImagesFiles(), getTitle(), getWriter(), getContent(), getPassword());
     }
 }
