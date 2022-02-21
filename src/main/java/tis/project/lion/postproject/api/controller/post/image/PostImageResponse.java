@@ -17,10 +17,6 @@ public class PostImageResponse {
 		this.url = url;
 	}
 
-	public static PostImageResponse postImagerequest(Long id, String uploadFileName, String storeFileName) {
-		return new PostImageResponse(HOST + id, uploadFileName, fileDir + storeFileName);
-	}
-
 	public String getUploadFileName() {
 		return uploadFileName;
 	}
@@ -33,7 +29,11 @@ public class PostImageResponse {
 		return url;
 	}
 
+	public static PostImageResponse postImageResponse(Long id, String uploadFileName, String storeFileName) {
+		return new PostImageResponse(HOST + id, uploadFileName, fileDir + storeFileName);
+	}
+
 	public static PostImageResponse convertPostImageToPostImageRequest(PostImage postImage) {
-		return postImagerequest(postImage.getId(), postImage.getUploadFileName(), postImage.getStoreFileName());
+		return postImageResponse(postImage.getId(), postImage.getUploadFileName(), postImage.getStoreFileName());
 	}
 }
