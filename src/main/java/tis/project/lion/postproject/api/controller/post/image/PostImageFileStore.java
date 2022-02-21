@@ -17,7 +17,7 @@ public class PostImageFileStore {
 	@Value("${file.dir}")
 	private String fileDir;
 
-	private String getFullPath(String filename) {
+	public String getFullPath(String filename) {
 		return fileDir + filename;
 	}
 

@@ -41,7 +41,9 @@ class JpaPostRepositoryTest {
     void edit() {
         Post post = new Post(null, board, "title", "tis", "content", "password");
         postRepository.save(post);
-        postRepository.updateTitleAndContent(post.getId(), "edit", "editContent");
+        post.setWriter("edit");
+        post.setContent("editContent");
+        postRepository.save(post);
     }
 
     @Test

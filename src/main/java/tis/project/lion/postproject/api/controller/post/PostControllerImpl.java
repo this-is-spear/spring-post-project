@@ -4,16 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tis.project.lion.postproject.api.controller.ApiResult;
 import tis.project.lion.postproject.api.controller.post.image.PostImageFileStore;
+import tis.project.lion.postproject.domain.image.PostImage;
 import tis.project.lion.postproject.domain.post.Post;
 import tis.project.lion.postproject.service.PostService;
 
 import java.io.IOException;
+import java.util.List;
 
 import static tis.project.lion.postproject.api.controller.ApiResult.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/api/posts")
 public class PostControllerImpl implements PostController{
 	private final PostService postService;
 	private final PostImageFileStore postImageFileStore;
@@ -30,20 +32,41 @@ public class PostControllerImpl implements PostController{
 		return OK(getDetailPostResponse(post));
 	}
 
-//	@Override
+	@Override
 	@PostMapping
-	public ApiResult<DetailPostResponse> createPost(@RequestBody PostRequest postRequest) throws IOException {
-		Post convertPost = postRequest.convertPost();
-		log.info("[{}][{}]", convertPost.getTitle(), convertPost.getContent());
-		Post post = postService.createPost(convertPost);
-		return OK(getDetailPostResponse(post));
+	public ApiResult<DetailPostResponse> createPost(@ModelAttribute PostRequest postRequest) throws IOException {
+		Post post = postRequest.convertPost();
+		if (checkImageFiles(postRequest)) {
+			List<PostImage> postImageList = postImageFileStore.storeFiles(postRequest.getImageFiles());
+			post.setImagesFiles(postImageList);
+		}
+		Post createPost = postService.createPost(post);
+		return OK(getDetailPostResponse(createPost));
 	}
+
+	private boolean checkImageFiles(PostRequest postRequest) {
+		return checkNullImageFiels(postRequest) || checkEmptyImageFiles(postRequest);
+	}
+
+	private boolean checkNullImageFiels(PostRequest postRequest) {
+		return postRequest.getImageFiles() != null;
+	}
+
+	private boolean checkEmptyImageFiles(PostRequest postRequest) {
+		return !postRequest.getImageFiles().isEmpty();
+	}
+
 
 	@Override
 	@PatchMapping("/{postId}")
-	public ApiResult<DetailPostResponse> editPost(@PathVariable Long postId, @ModelAttribute DetailPostResponse postDto) {
-		Post post = postService.editPost(postId, postDto.convertPost());
-		return OK(getDetailPostResponse(post));
+	public ApiResult<DetailPostResponse> editPost(@PathVariable Long postId, @ModelAttribute PostRequest postRequest) throws IOException {
+		Post post = postRequest.convertPost();
+		if (checkImageFiles(postRequest)) {
+			List<PostImage> postImageList = postImageFileStore.storeFiles(postRequest.getImageFiles());
+			post.setImagesFiles(postImageList);
+		}
+		Post editPost = postService.editPost(postId, post);
+		return OK(getDetailPostResponse(editPost));
 	}
 
 	@Override
@@ -56,5 +79,6 @@ public class PostControllerImpl implements PostController{
 	private DetailPostResponse getDetailPostResponse(Post post) {
 		return post.convertPostToDetailPostResponse();
 	}
+
 
 }

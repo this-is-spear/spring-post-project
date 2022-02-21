@@ -4,17 +4,17 @@ import tis.project.lion.postproject.domain.image.PostImage;
 
 public class PostImageResponse {
 
-	private static final String fileDir = "/Users/keonchanglee/Desktop/upload-file/";
-	private static final String HOST = "http://localhost:8080/posts/";
+//	private static final String fileDir = "/Users/keonchanglee/Desktop/upload-file/";
+	private static final String HOST = "http://localhost:8080/posts/there's_image_path";
 
 	private final String uploadFileName;
 	private final String filePath;
-	private final String url;
+	private final String storeFileName;
 
-	private PostImageResponse(String uploadFileName, String filePath, String url) {
+	private PostImageResponse(String uploadFileName, String filePath, String storeFileName) {
 		this.uploadFileName = uploadFileName;
 		this.filePath = filePath;
-		this.url = url;
+		this.storeFileName = storeFileName;
 	}
 
 	public String getUploadFileName() {
@@ -25,12 +25,12 @@ public class PostImageResponse {
 		return filePath;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getStoreFileName() {
+		return storeFileName;
 	}
 
 	public static PostImageResponse postImageResponse(Long id, String uploadFileName, String storeFileName) {
-		return new PostImageResponse(HOST + id, uploadFileName, fileDir + storeFileName);
+		return new PostImageResponse(HOST + id, uploadFileName,  storeFileName);
 	}
 
 	public static PostImageResponse convertPostImageToPostImageRequest(PostImage postImage) {

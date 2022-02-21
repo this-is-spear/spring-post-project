@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+          href="../css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 560px;
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>상품 등록</h2> </div>
+    <form th:action th:object="${postRequest}" method="post" enctype="multipart/form-data">
+        <div>
+            <div>
+                <label for="title">제목</label>
+                <input type="text" name="itemName" th:field="*{title}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{title}">
+                </div>
+            </div>
+            <div>
+                <label for="writer">작성자</label>
+                <input type="text" name="itemContent" th:field="*{writer}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{writer}">
+                </div>
+            </div>
+            <div>
+                <label for="password">비밀번호</label>
+                <input type="text" name="itemCategory" th:field="*{password}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{password}">
+                </div>
+            </div>
+            <div>
+                <label for="content">본문</label>
+                <input type="text" name="itemPrice" th:field="*{content}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{content}">
+                </div>
+            </div>
+            <div>
+                <label for="imageFiles">이미지 파일들</label>
+                <input type="file" multiple="multiple" name="imageFiles" th:field="*{imageFiles}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{imageFiles}">
+                </div>
+            </div>
+        </div>
+        <input type="submit"/>
+    </form>
+</div> <!-- /container -->
+</body>
+</html>

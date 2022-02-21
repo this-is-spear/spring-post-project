@@ -87,7 +87,11 @@ public class Post {
         return imagesFiles;
     }
 
-    private void setTitle(String title) {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -95,15 +99,15 @@ public class Post {
         this.writer = writer;
     }
 
-    private void setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    private void setBoard(Board board) {
+    public void setBoard(Board board) {
         this.board = board;
     }
 
