@@ -1,20 +1,20 @@
 package tis.project.lion.postproject.api.controller.post.image;
 
+import org.springframework.beans.factory.annotation.Value;
 import tis.project.lion.postproject.domain.image.PostImage;
 
 public class PostImageResponse {
+	private String fileDir = "/Users/keonchanglee/Desktop/upload-file/";
 
-//	private static final String fileDir = "/Users/keonchanglee/Desktop/upload-file/";
-	private static final String HOST = "http://localhost:8080/posts/there's_image_path";
-
+	private String HOST = "http://localhost:8080/posts/{there's_image_path}/";
 	private final String uploadFileName;
 	private final String filePath;
-	private final String storeFileName;
+	private final String storeFilePath;
 
-	private PostImageResponse(String uploadFileName, String filePath, String storeFileName) {
+	private PostImageResponse(String uploadFileName, Long id, String storeFilePath) {
 		this.uploadFileName = uploadFileName;
-		this.filePath = filePath;
-		this.storeFileName = storeFileName;
+		this.filePath = HOST + id ;
+		this.storeFilePath = fileDir + storeFilePath;
 	}
 
 	public String getUploadFileName() {
@@ -25,15 +25,15 @@ public class PostImageResponse {
 		return filePath;
 	}
 
-	public String getStoreFileName() {
-		return storeFileName;
+	public String getStoreFilePath() {
+		return storeFilePath;
 	}
 
-	public static PostImageResponse postImageResponse(Long id, String uploadFileName, String storeFileName) {
-		return new PostImageResponse(HOST + id, uploadFileName,  storeFileName);
+	public static PostImageResponse postImageResponse( String uploadFileName, Long id, String storeFileName) {
+		return new PostImageResponse(uploadFileName, id, storeFileName);
 	}
 
-	public static PostImageResponse convertPostImageToPostImageRequest(PostImage postImage) {
-		return postImageResponse(postImage.getId(), postImage.getUploadFileName(), postImage.getStoreFileName());
+	public static PostImageResponse convertPostImageToPostImageResponse(PostImage postImage) {
+		return postImageResponse(postImage.getUploadFileName(), postImage.getId(), postImage.getStoreFileName());
 	}
 }

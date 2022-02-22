@@ -112,15 +112,15 @@ public class Post {
     }
 
     public DetailPostResponse convertPostToDetailPostResponse() {
-        return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent(), convertPostImageToPostImageRequest());
+        return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent(), convertPostImageToPostImageResponse());
     }
 
     public SimplePostResponse convertPostToSimplePostResponse() {
         return SimplePostResponse.createPostResponse(this.getId(), this.getTitle(), this.getContent());
     }
 
-    public List<PostImageResponse> convertPostImageToPostImageRequest() {
-        return this.getImagesFiles().stream().map(PostImageResponse::convertPostImageToPostImageRequest).collect(Collectors.toList());
+    public List<PostImageResponse> convertPostImageToPostImageResponse() {
+        return this.getImagesFiles().stream().map(PostImageResponse::convertPostImageToPostImageResponse).collect(Collectors.toList());
     }
 
     public void uploadImage(PostImage postImage) {

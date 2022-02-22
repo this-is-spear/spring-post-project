@@ -45,10 +45,10 @@ public class PostControllerImpl implements PostController{
 	}
 
 	private boolean checkImageFiles(PostRequest postRequest) {
-		return checkNullImageFiels(postRequest) || checkEmptyImageFiles(postRequest);
+		return checkNullImageFiles(postRequest) || checkEmptyImageFiles(postRequest);
 	}
 
-	private boolean checkNullImageFiels(PostRequest postRequest) {
+	private boolean checkNullImageFiles(PostRequest postRequest) {
 		return postRequest.getImageFiles() != null;
 	}
 
