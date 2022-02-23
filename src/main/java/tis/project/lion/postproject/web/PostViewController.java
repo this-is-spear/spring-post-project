@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import tis.project.lion.postproject.api.controller.ApiResult;
 import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
 import tis.project.lion.postproject.api.controller.post.PostRequest;
 import tis.project.lion.postproject.api.controller.post.image.PostImageFileStore;
@@ -18,7 +17,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
 
-import static tis.project.lion.postproject.api.controller.ApiResult.OK;
 
 @Controller
 @RequestMapping("/posts")
@@ -45,7 +43,6 @@ public class PostViewController {
 		Post post = postService.createPost(convertPost);
 		redirectAttributes.addAttribute("postId", post.getId());
 		return "redirect:/posts/{postId}";
-
 	}
 
 	@ResponseBody
@@ -61,6 +58,4 @@ public class PostViewController {
 		model.addAttribute("postResponse", postResponse);
 		return "posts/post-view";
 	}
-
-
 }

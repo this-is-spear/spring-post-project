@@ -26,6 +26,10 @@ public class ApiResult<T> {
 		return new ApiResult<>(false, null, new ApiError(throwable, status));
 	}
 
+	public static ApiResult<?> SERVER_ERROR(Throwable throwable, HttpStatus status) {
+		return new ApiResult<>(false, null, new ApiError("server error", status));
+	}
+
 	public boolean isSuccess() {
 		return success;
 	}
