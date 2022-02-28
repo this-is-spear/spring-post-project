@@ -44,19 +44,6 @@ public class PostControllerImpl implements PostController{
 		return OK(getDetailPostResponse(createPost));
 	}
 
-	private boolean checkImageFiles(PostRequest postRequest) {
-		return checkNullImageFiles(postRequest) || checkEmptyImageFiles(postRequest);
-	}
-
-	private boolean checkNullImageFiles(PostRequest postRequest) {
-		return postRequest.getImageFiles() != null;
-	}
-
-	private boolean checkEmptyImageFiles(PostRequest postRequest) {
-		return !postRequest.getImageFiles().isEmpty();
-	}
-
-
 	@Override
 	@PatchMapping("/{postId}")
 	public ApiResult<DetailPostResponse> editPost(@PathVariable Long postId, @ModelAttribute PostRequest postRequest) throws IOException {
@@ -80,5 +67,16 @@ public class PostControllerImpl implements PostController{
 		return post.convertPostToDetailPostResponse();
 	}
 
+	private boolean checkImageFiles(PostRequest postRequest) {
+		return checkNullImageFiles(postRequest) || checkEmptyImageFiles(postRequest);
+	}
+
+	private boolean checkNullImageFiles(PostRequest postRequest) {
+		return postRequest.getImageFiles() != null;
+	}
+
+	private boolean checkEmptyImageFiles(PostRequest postRequest) {
+		return !postRequest.getImageFiles().isEmpty();
+	}
 
 }

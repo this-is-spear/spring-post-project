@@ -7,7 +7,7 @@ import tis.project.lion.postproject.api.controller.ApiResult;
 
 @RestControllerAdvice
 public class ServerExceptionHandler {
-	@ExceptionHandler
+	@ExceptionHandler(value = Exception.class)
 	public ApiResult handlerServerException() {
 		return ApiResult.ERROR(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}

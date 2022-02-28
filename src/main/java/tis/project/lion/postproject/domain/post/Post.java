@@ -1,5 +1,7 @@
 package tis.project.lion.postproject.domain.post;
 
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.web.multipart.MultipartFile;
 import tis.project.lion.postproject.api.controller.post.DetailPostResponse;
 import tis.project.lion.postproject.api.controller.post.SimplePostResponse;
 import tis.project.lion.postproject.api.controller.post.image.PostImageResponse;
@@ -13,6 +15,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
+@DynamicUpdate
 public class Post {
     @Id
     @GeneratedValue
@@ -44,21 +47,15 @@ public class Post {
     }
 
     public Post(String title, String writer, String content, String password) {
-        this.title = title;
-        this.writer = writer;
-        this.content = content;
-        this.password = password;
+        this(null, null, title, writer, content, password);
     }
 
     public Post(String title, String writer, String content) {
-        this.title = title;
-        this.writer = writer;
-        this.content = content;
+        this(null, null, title, writer, content, null);
     }
 
-    public Post() {
+    protected Post() {}
 
-    }
     public Long getId() {
         return id;
     }
@@ -87,30 +84,6 @@ public class Post {
         return imagesFiles;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
     public DetailPostResponse convertPostToDetailPostResponse() {
         return DetailPostResponse.createDetailPostResponse(this.getTitle(), this.getWriter(), this.getContent(), convertPostImageToPostImageResponse());
     }
@@ -132,6 +105,30 @@ public class Post {
         for (PostImage imagesFile : imagesFiles) {
             this.uploadImage(imagesFile);
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setWriter(String writer) {
+        this.writer = writer;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

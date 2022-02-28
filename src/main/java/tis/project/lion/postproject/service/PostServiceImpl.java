@@ -6,10 +6,7 @@ import tis.project.lion.postproject.domain.post.Post;
 import tis.project.lion.postproject.exception.NoPostException;
 import tis.project.lion.postproject.repository.PostRepository;
 
-import java.util.Optional;
-
 @Service
-@Transactional
 public class PostServiceImpl implements PostService{
 
 	private final PostRepository postRepository;
@@ -19,6 +16,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
+	@Transactional
 	public Post createPost(Post post) {
 		return postRepository.save(post);
 	}
@@ -26,14 +24,11 @@ public class PostServiceImpl implements PostService{
 	@Override
 	@Transactional(readOnly = true)
 	public Post findPostOne(Long post_id) {
-		Optional<Post> findPost = postRepository.findById(post_id);
-		if (findPost.isEmpty()) {
-			throw new NoPostException("게시글이 존재하지 않습니다.");
-		}
-		return findPost.get();
+		return postRepository.findById(post_id).orElseThrow(NoPostException::new);
 	}
 
 	@Override
+	@Transactional
 	public Post editPost(Long post_id, Post post) {
 		Post findPost = findPostOne(post_id);
 		if (post.getTitle() != null) {
@@ -42,9 +37,9 @@ public class PostServiceImpl implements PostService{
 		if (post.getContent() != null) {
 			findPost.setContent(post.getContent());
 		}
-		if (!post.getImagesFiles().isEmpty()) {
-			findPost.setImagesFiles(post.getImagesFiles());
-		}
+//		if (!post.getImagesFiles().isEmpty()) {
+//			findPost.setImagesFiles(post.getImagesFiles());
+//		}
 		if (post.getWriter() != null) {
 			findPost.setWriter(post.getWriter());
 		}
@@ -55,6 +50,7 @@ public class PostServiceImpl implements PostService{
 	}
 
 	@Override
+	@Transactional
 	public void deletePost(Long post_id) {
 		postRepository.deleteById(post_id);
 	}

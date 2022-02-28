@@ -8,13 +8,13 @@ import java.util.List;
 
 public class PostRequest {
 
-    private String title;
+    private final String title;
 
-    private String writer;
+    private final String writer;
 
-    private String content;
+    private final String content;
 
-    private String password;
+    private final String password;
 
     private List<MultipartFile> imageFiles = new ArrayList<>();
 
@@ -23,10 +23,9 @@ public class PostRequest {
         this.writer = writer;
         this.content = content;
         this.password = password;
-        this.imageFiles = imageFiles;
-    }
-
-    public PostRequest() {
+        if (imageFiles != null) {
+            this.imageFiles = imageFiles;
+        }
     }
 
     public List<MultipartFile> getImageFiles() {
@@ -47,27 +46,6 @@ public class PostRequest {
 
     public String getPassword() {
         return password;
-    }
-
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setWriter(String writer) {
-        this.writer = writer;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setImageFiles(List<MultipartFile> imageFiles) {
-        this.imageFiles = imageFiles;
     }
 
     public Post convertPost() {

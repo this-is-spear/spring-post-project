@@ -23,11 +23,13 @@ public class PostImageFileStore {
 
 	public List<PostImage> storeFiles(List<MultipartFile> multipartFileList) throws IOException {
 		List<PostImage> storeFileResult = new ArrayList<>();
-		for (MultipartFile multipartFile : multipartFileList) {
-			if (!multipartFile.isEmpty()) {
-				storeFileResult.add(storeFile(multipartFile));
-			}
-		}
+		multipartFileList.forEach(multipartFile -> {
+				try {
+					storeFileResult.add(storeFile(multipartFile));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		});
 		return storeFileResult;
 	}
 
